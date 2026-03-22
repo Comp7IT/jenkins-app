@@ -10,7 +10,7 @@ pipeline {
             steps {
                 echo 'Pobieranie aplikacji Node.js z GitHub...'
                 git branch: 'main',
-                    url: 'https://github.com/heroku/node-js.git'
+                    url: 'https://github.com/heroku/node-js-sample.git'
             }
         }
         stage('Build') {
