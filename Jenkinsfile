@@ -1,11 +1,17 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                echo 'Pobieranie kodu...'
-                git 'https://github.com/heroku/node-js.git'
+                echo 'Pobieranie aplikacji Node.js z GitHub...'
+                git branch: 'main',
+                    url: 'https://github.com/heroku/node-js.git'
+                    credentialsId: ''
             }
         }
         stage('Build') {
