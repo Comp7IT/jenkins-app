@@ -61,4 +61,18 @@ pipeline {
             }
         }
     }
+
+    // ===== Post-build notifications =====
+    post {
+        success {
+            mail to: 'mtti882@gmail.com',
+                 subject: "Build SUKCES: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "Pipeline zakończony pomyślnie! Sprawdź: ${env.BUILD_URL}"
+        }
+        failure {
+            mail to: 'mtti882@gmail.com',
+                 subject: "Build NIEPOWODZENIE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "Pipeline nie powiódł się. Sprawdź szczegóły: ${env.BUILD_URL}"
+        }
+    }
 }
