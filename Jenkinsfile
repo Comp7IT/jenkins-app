@@ -45,14 +45,15 @@ pipeline {
 
         stage('Test') {
             steps {
-                # Safe test command to avoid breaking the pipeline if missing
-                sh 'npm test || true'
+                sh '''
+                    # Safe test command to avoid breaking the pipeline if missing
+                    npm test || true
+                '''
             }
         }
 
         stage('Deploy') {
             steps {
-                # Use rsync to avoid copying deploy folder into itself
                 sh '''
                     mkdir -p deploy
                     rsync -av --exclude='deploy' ./ deploy/
