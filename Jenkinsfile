@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Pobieranie aplikacji Node.js z GitHub...'
-                git branch: 'main',
+                git branch: 'master',
                     url: 'git@github.com:heroku/node-js-sample.git',
                     credentialsId: 'github-ssh'
             }
