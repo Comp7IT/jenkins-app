@@ -16,7 +16,18 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'npm install'
+                sh '''
+                    export NVM_DIR="$HOME/.nvm"
+                    if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+                        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.6/install.sh | bash
+                    fi
+                    source "$NVM_DIR/nvm.sh"
+                    nvm install 18
+                    nvm use 18
+                    node -v
+                    npm -v
+                    npm install
+                '''
             }
         }
         stage('Test') {
@@ -28,9 +39,9 @@ pipeline {
             steps {
                 sh '''
                     mkdir -p deploy
-                    cp -r * deploy/
+                    rsync -av --exclude='deploy' ./ deploy/
                 '''
             }
         }
     }
-}                
+}
